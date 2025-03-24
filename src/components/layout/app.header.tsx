@@ -1,9 +1,10 @@
 import logo from "@/assets/img/logo.png"
-import searchIcon from "@/assets/img/search_icon.png"
-import profileIcon from "@/assets/img/profile_icon.png"
-import cartIcon from "@/assets/img/cart_icon.png"
+// import profileIcon from "@/assets/img/profile_icon.png"
+// import cartIcon from "@/assets/img/cart_icon.png"
 
 import { Link, NavLink } from "react-router"
+import { Input } from "../ui/input"
+import { Button } from "../ui/button"
 
 function AppHeader() {
     return (
@@ -15,7 +16,7 @@ function AppHeader() {
                     <hr className="w-2/4 border-none h-[1.5px] bg-gray-700" />
                 </NavLink>
                 <NavLink to={"/"} className="flex flex-col items-center gap-1">
-                    <p>Collection</p>
+                    <p>All Product</p>
                     <hr className="w-2/4 border-none h-[1.5px] bg-gray-700" />
                 </NavLink>
                 <NavLink to={"/"} className="flex flex-col items-center gap-1">
@@ -28,7 +29,11 @@ function AppHeader() {
                 </NavLink>
             </ul>
             <div className="flex items-center gap-6">
-                <img src={searchIcon} alt="" className="w-5 cursor-pointer " />
+                <Input type="text" placeholder="Do you looking for what" className="border border-amber-100 rounded-2xl" />
+
+                {/* <Link to="/cart" className="relative">
+                    <img src={cartIcon} alt="" className="w-5 cursor-pointer" />
+                </Link>
                 <div className="group relative">
                     <img src={profileIcon} alt="" className="w-5 cursor-pointer" />
                     <div className="group-hover:block hidden  absolute dropdown-menu right-0 pt-4">
@@ -38,10 +43,10 @@ function AppHeader() {
                             <p className="cursor-pointer hover:text-black">Log out</p>
                         </div>
                     </div>
-                </div>
-                <Link to="/cart" className="relative">
-                    <img src={cartIcon} alt="" className="w-5 cursor-pointer" />
-                </Link>
+                </div> */}
+                <Button className="bg-blue-500 hover:border-amber-300  ">
+                    <Link to={"login"}>Login</Link>
+                </Button>
             </div>
         </div>
     )
