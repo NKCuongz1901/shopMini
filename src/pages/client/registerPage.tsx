@@ -1,10 +1,11 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router";
 type Inputs = {
+    name: string;
     email: string;
     password: string;
 };
-function LoginPage() {
+function RegisterPage() {
     const {
         register,
         handleSubmit,
@@ -15,7 +16,7 @@ function LoginPage() {
     };
     return (
         <div className="w-full min-h-screen grid bg-orange-300/20">
-            <div className="m-auto">
+            <div className="m-auto w-[400px]">
                 <h1 className="w-full font-bold text-4xl mb-5 text-center uppercase">
                     Hey There 👋
                 </h1>
@@ -23,13 +24,18 @@ function LoginPage() {
                     onSubmit={handleSubmit(onSubmit)}
                     className="border p-16 bg-white/30 rounded-lg shadow-md"
                 >
-                    <h1 className="text-center font-semibold text-3xl mb-5">Login Now</h1>
+                    <h1 className="text-center font-semibold text-3xl mb-5">Sign Up</h1>
                     {/* <div className="flex gap-5">
                         <GoogleLogin />
                         <GithubLogin />
                     </div> */}
-                    <div className="text-center font-bold text-lg mt-5">
-                        or login with
+                    <div className="flex flex-col gap-2">
+                        <label>Full Name</label>
+                        <input
+                            type="text"
+                            className="text-black border border-black/20 rounded-lg p-1 shadow-sm"
+                            {...register("name")}
+                        />
                     </div>
                     <div className="flex flex-col gap-2">
                         <label>Email</label>
@@ -57,13 +63,13 @@ function LoginPage() {
                     />
                     <div className="mt-5">
                         <span className="cursor-default">
-                            Dont have an account with us?
+                            If you still have account
                         </span>
                         <Link
                             className="bg-blue-200 p-1 rounded-lg font-bold"
-                            to={"/register"}
+                            to={"/login"}
                         >
-                            Register Now
+                            Login Now
                         </Link>
                     </div>
                 </form>
@@ -74,4 +80,4 @@ function LoginPage() {
     )
 }
 
-export default LoginPage
+export default RegisterPage

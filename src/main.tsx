@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import Layout from './App.tsx'
 import Homepage from './pages/client/homepage.tsx'
 import LoginPage from './pages/client/loginPage.tsx'
+import ProductPage from './pages/client/productPage.tsx'
+import RegisterPage from './pages/client/registerPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -13,6 +15,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true, element: <Homepage />
+      },
+      {
+        path: "/product",
+        element: <ProductPage />
       }
     ]
   },
@@ -25,7 +31,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <div>Register page</div>
+    element: <RegisterPage />
   }
 ]);
 
