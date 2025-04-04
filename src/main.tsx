@@ -7,6 +7,10 @@ import Homepage from './pages/client/homepage.tsx'
 import LoginPage from './pages/client/loginPage.tsx'
 import ProductPage from './pages/client/productPage.tsx'
 import RegisterPage from './pages/client/registerPage.tsx'
+import LayoutAdmin from './components/layout/layout.admin.tsx'
+import DashBoardPage from './pages/admin/dashBoardPage.tsx'
+import UserAdminPage from './pages/admin/userAdminPage.tsx'
+import ProductAdminPage from './pages/admin/productAdminPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -22,7 +26,23 @@ const router = createBrowserRouter([
       }
     ]
   },
-
+  {
+    path: "/admin",
+    element: <LayoutAdmin />,
+    children: [
+      {
+        index: true, element: <DashBoardPage />
+      },
+      {
+        path: 'user',
+        element: <UserAdminPage />,
+      },
+      {
+        path: 'product',
+        element: <ProductAdminPage />
+      }
+    ]
+  },
 
 
   {

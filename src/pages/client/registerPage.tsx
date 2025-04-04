@@ -53,10 +53,6 @@ function RegisterPage() {
                             {...register("password")}
                         />
                     </div>
-                    <div className="flex gap-2 mt-5">
-                        <input type="checkbox" />
-                        <label>Remember me</label>
-                    </div>
                     <input
                         type="submit"
                         className="w-full cursor-pointer bg-green-300/50 rounded-md p-1 hover:shadow-md mt-5 font-bold text-lg"
