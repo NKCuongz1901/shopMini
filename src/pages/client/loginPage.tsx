@@ -1,17 +1,28 @@
+import { Toaster } from "@/components/ui/sonner";
+import { loginApi } from "@/services/api";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { toast } from "sonner";
 type Inputs = {
     email: string;
     password: string;
 };
 function LoginPage() {
+    const navigate = useNavigate();
     const {
         register,
-        handleSubmit,
-        formState: { errors },
+        handleSubmit
     } = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log("data", data);
+    const onSubmit: SubmitHandler<Inputs> = async (values) => {
+        const res = await loginApi(values.email, values.password);
+        if (res.data) {
+            toast.success("Login Successful");
+            navigate("/");
+
+        } else {
+            toast.error("Email or password is incorrect")
+        }
+
     };
     return (
         <div className="w-full min-h-screen grid bg-orange-300/20">
@@ -36,7 +47,7 @@ function LoginPage() {
                         <input
                             type="email"
                             className="text-black border border-black/20 rounded-lg p-1 shadow-sm"
-                            {...register("email")}
+                            {...register("email", { required: true, maxLength: 30 })}
                         />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -67,6 +78,7 @@ function LoginPage() {
                         </Link>
                     </div>
                 </form>
+                <Toaster position="top-center" richColors />
             </div>
         </div>
 

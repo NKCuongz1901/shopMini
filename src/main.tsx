@@ -11,6 +11,8 @@ import LayoutAdmin from './components/layout/layout.admin.tsx'
 import DashBoardPage from './pages/admin/dashBoardPage.tsx'
 import UserAdminPage from './pages/admin/userAdminPage.tsx'
 import ProductAdminPage from './pages/admin/productAdminPage.tsx'
+import OrderAdminPage from './pages/admin/orderAdminPage.tsx'
+import { AppProvider } from './components/context/app.context.tsx'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: 'product',
         element: <ProductAdminPage />
+      },
+      {
+        path: 'order',
+        element: <OrderAdminPage />
       }
     ]
   },
@@ -59,7 +65,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AppProvider>
+      <RouterProvider router={router} />
+    </AppProvider>
 
   </StrictMode>,
 )
