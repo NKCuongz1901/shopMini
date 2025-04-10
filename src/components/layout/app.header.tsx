@@ -5,29 +5,40 @@ import logo from "@/assets/img/logo.png"
 import { Link, NavLink } from "react-router"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import { useCurrentApp } from "../context/app.context"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 
 function AppHeader() {
+    const { user, isAuthenticated, setUser, setIsAuthenticate } = useCurrentApp();
+
+
+    const handleLogout = () => {
+        localStorage.removeItem("access_token");
+        setUser(null);
+        setIsAuthenticate(false);
+    }
+
+
+
     return (
         <div className="flex items-center justify-between py-5 font-medium px-10">
             <a href="/">
                 <img src={logo} alt="logo img" className="w-36" />
             </a>
             <ul className="hidden sm:flex gap-5  text-sm text-gray-700">
-                <NavLink to={"/"} className="flex flex-col items-center gap-1">
+                <NavLink to={"/"} className="flex flex-col items-center gap-1 text-[18px] hover:opacity-80">
                     <p>Home</p>
-                    <hr className="w-2/4 border-none h-[1.5px] bg-gray-700" />
+
                 </NavLink>
-                <NavLink to={"/product"} className="flex flex-col items-center gap-1">
+                <NavLink to={"/product"} className="flex flex-col items-center gap-1 text-[18px] hover:opacity-80">
                     <p>All Product</p>
-                    <hr className="w-2/4 border-none h-[1.5px] bg-gray-700" />
                 </NavLink>
-                <NavLink to={"/"} className="flex flex-col items-center gap-1">
+                <NavLink to={"/"} className="flex flex-col items-center gap-1 text-[18px] hover:opacity-80">
                     <p>About</p>
-                    <hr className="w-2/4 border-none h-[1.5px] bg-gray-700" />
                 </NavLink>
-                <NavLink to={"/"} className="flex flex-col items-center gap-1">
+                <NavLink to={"/"} className="flex flex-col items-center gap-1 text-[18px] hover:opacity-80">
                     <p>Contact</p>
-                    <hr className="w-2/4 border-none h-[1.5px] bg-gray-700" />
                 </NavLink>
             </ul>
             <div className="flex items-center gap-6">
@@ -46,9 +57,45 @@ function AppHeader() {
                         </div>
                     </div>
                 </div> */}
-                <Button className="bg-blue-500 hover:border-amber-300  ">
-                    <Link to={"login"}>Login</Link>
-                </Button>
+                {!isAuthenticated ?
+                    <Button className="bg-blue-500 hover:border-amber-300  ">
+                        <Link to={"login"}>Login</Link>
+                    </Button>
+                    :
+                    <DropdownMenu >
+                        <DropdownMenuTrigger asChild className="">
+                            <Avatar>
+                                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                                <AvatarFallback>CN</AvatarFallback>
+                            </Avatar>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-56 bg-white ">
+                            <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuGroup>
+                                {user?.role === "ADMIN" && (
+                                    <DropdownMenuItem>
+                                        Admin page
+                                    </DropdownMenuItem>
+                                )}
+                                <DropdownMenuItem className="cursor-pointer hover:opacity-90">
+                                    Profile
+
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    Cart
+
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={handleLogout}>
+                                    Log out
+                                </DropdownMenuItem>
+                            </DropdownMenuGroup>
+
+
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                }
+
             </div>
         </div>
     )

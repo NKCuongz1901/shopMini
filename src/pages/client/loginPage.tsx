@@ -1,3 +1,4 @@
+import { useCurrentApp } from "@/components/context/app.context";
 import { Toaster } from "@/components/ui/sonner";
 import { loginApi } from "@/services/api";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -9,14 +10,22 @@ type Inputs = {
 };
 function LoginPage() {
     const navigate = useNavigate();
+    const { setIsAuthenticate, setUser } = useCurrentApp();
+    const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
     const {
         register,
         handleSubmit
     } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = async (values) => {
+
         const res = await loginApi(values.email, values.password);
         if (res.data) {
             toast.success("Login Successful");
+            setIsAuthenticate(true);
+            setUser(res.data.user);
+            localStorage.setItem("access_token", res.data.tokens.access_token);
+            localStorage.setItem("refresh_token", res.data.tokens.refresh_token);
+            await sleep(1000);
             navigate("/");
 
         } else {
