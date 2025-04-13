@@ -28,14 +28,30 @@ export const AppProvider = (props: TProps) => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            await sleep(1500);
-            const res = await getMe();
-            if (res && res.success && res.data?.user) {
-
-                setUser(res.data.user);
-                setIsAuthenticate(true);
+            const accessToken = localStorage.getItem("access_token");
+            const refreshToken = localStorage.getItem("refresh_token");
+            if (!accessToken && !refreshToken) {
+                setIsAppLoading(false);
+                return;
             }
-            setIsAppLoading(false);
+            try {
+                await sleep(1500);
+                const res = await getMe();
+
+                if (res && res.success && res.data?.user) {
+                    setUser(res.data.user);
+                    setIsAuthenticate(true);
+                } else {
+                    setIsAuthenticate(false);
+                    setUser(null);
+                }
+            } catch (error) {
+                setIsAuthenticate(false);
+                setUser(null);
+                console.error("Error fetching user:", error);
+            } finally {
+                setIsAppLoading(false);
+            }
         };
         fetchUser();
     }, [])

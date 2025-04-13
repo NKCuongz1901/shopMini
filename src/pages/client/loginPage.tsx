@@ -77,7 +77,7 @@ function LoginPage() {
                     />
                     <div className="mt-5">
                         <span className="cursor-default">
-                            Dont have an account with us?
+                            Don't have an account with us?
                         </span>
                         <Link
                             className="bg-blue-200 p-1 rounded-lg font-bold"

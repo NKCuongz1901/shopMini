@@ -21,3 +21,8 @@ export const getMe = () => {
     const urlBackend = "api/v1/auth/me";
     return axios.get<IBackendRes<ILogin>>(urlBackend);
 }
+
+export const verifyApi = (email: string, code: string) => {
+    const urlBackend = "api/v1/auth/verify";
+    return axios.post(urlBackend, { email, code });
+}

@@ -7,7 +7,7 @@ import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { useCurrentApp } from "../context/app.context"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import { Avatar, AvatarImage } from "../ui/avatar"
 
 function AppHeader() {
     const { user, isAuthenticated, setUser, setIsAuthenticate } = useCurrentApp();
@@ -15,6 +15,7 @@ function AppHeader() {
 
     const handleLogout = () => {
         localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
         setUser(null);
         setIsAuthenticate(false);
     }
@@ -66,7 +67,7 @@ function AppHeader() {
                         <DropdownMenuTrigger asChild className="">
                             <Avatar>
                                 <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                                <AvatarFallback>CN</AvatarFallback>
+                                {/* <AvatarFallback>{user?.name}</AvatarFallback> */}
                             </Avatar>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-56 bg-white ">

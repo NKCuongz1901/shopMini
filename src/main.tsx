@@ -13,6 +13,7 @@ import UserAdminPage from './pages/admin/userAdminPage.tsx'
 import ProductAdminPage from './pages/admin/productAdminPage.tsx'
 import OrderAdminPage from './pages/admin/orderAdminPage.tsx'
 import { AppProvider } from './components/context/app.context.tsx'
+import VerifyPage from './pages/client/verifyPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />
+  },
+  {
+    path: "/verify",
+    element: <VerifyPage />
   }
 ]);
 

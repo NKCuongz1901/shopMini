@@ -1,18 +1,31 @@
+import { Toaster } from "@/components/ui/sonner";
+import { registerApi } from "@/services/api";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { toast } from "sonner";
 type Inputs = {
     name: string;
     email: string;
     password: string;
 };
 function RegisterPage() {
+    const navigate = useNavigate();
+    const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log("data", data);
+    const onSubmit: SubmitHandler<Inputs> = async (values) => {
+        const res = await registerApi(values.email, values.name, values.password);
+        if (res.success === true) {
+            localStorage.setItem("register_email", values.email);
+            toast.success("Register Successful");
+            await sleep(1500);
+            navigate('/verify');
+        } else {
+            toast.error("Email is already existing");
+        }
     };
     return (
         <div className="w-full min-h-screen grid bg-orange-300/20">
@@ -34,24 +47,39 @@ function RegisterPage() {
                         <input
                             type="text"
                             className="text-black border border-black/20 rounded-lg p-1 shadow-sm"
-                            {...register("name")}
+                            {...register("name", { required: "Full name is required" })}
                         />
+                        {errors.name && (
+                            <span className="text-red-500 text-sm">
+                                {errors.name.message}
+                            </span>
+                        )}
                     </div>
                     <div className="flex flex-col gap-2">
                         <label>Email</label>
                         <input
                             type="email"
                             className="text-black border border-black/20 rounded-lg p-1 shadow-sm"
-                            {...register("email")}
+                            {...register("email", { required: "Email is required", maxLength: 30 })}
                         />
+                        {errors.email && (
+                            <span className="text-red-500 text-sm">
+                                {errors.email.message}
+                            </span>
+                        )}
                     </div>
                     <div className="flex flex-col gap-2">
                         <label>Password</label>
                         <input
                             type="password"
                             className="text-black border border-black/20 rounded-lg p-1 shadow-sm"
-                            {...register("password")}
+                            {...register("password", { required: "Password is required" })}
                         />
+                        {errors.password && (
+                            <span className="text-red-500 text-sm">
+                                {errors.password.message}
+                            </span>
+                        )}
                     </div>
                     <input
                         type="submit"
@@ -69,6 +97,7 @@ function RegisterPage() {
                         </Link>
                     </div>
                 </form>
+                <Toaster position="top-center" richColors />
             </div>
         </div>
 
