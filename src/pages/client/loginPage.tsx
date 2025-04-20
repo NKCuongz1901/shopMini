@@ -34,7 +34,7 @@ function LoginPage() {
 
     };
     return (
-        <div className="w-full min-h-screen grid bg-orange-300/20">
+        <div className="w-full min-h-screen grid bg-gradient-to-r from-gray-300 to-gray-100">
             <div className="m-auto">
                 <h1 className="w-full font-bold text-4xl mb-5 text-center uppercase">
                     Hey There 👋

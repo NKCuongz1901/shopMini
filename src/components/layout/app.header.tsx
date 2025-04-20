@@ -76,7 +76,10 @@ function AppHeader() {
                             <DropdownMenuGroup>
                                 {user?.role === "ADMIN" && (
                                     <DropdownMenuItem>
-                                        Admin page
+                                        <Link to={"/admin"}>
+
+                                            Admin page
+                                        </Link>
                                     </DropdownMenuItem>
                                 )}
                                 <DropdownMenuItem className="cursor-pointer hover:opacity-90">

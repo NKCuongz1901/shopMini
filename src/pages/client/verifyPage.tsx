@@ -23,7 +23,8 @@ function VerifyPage() {
     } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = async (values) => {
         const email = localStorage.getItem("register_email") as string;
-        console.log(email)
+        console.log(email);
+        console.log(values.code);
         const res = await verifyApi(email, values.code);
         if (res.success === true) {
             localStorage.removeItem("register_email");
@@ -40,7 +41,7 @@ function VerifyPage() {
 
 
     return (
-        <div className="w-full min-h-screen grid bg-orange-300/20">
+        <div className="w-full min-h-screen grid bg-gradient-to-r from-gray-300 to-gray-100">
             <div className="m-auto w-full max-w-md px-4">
                 <Card className="w-full">
                     <CardHeader className="space-y-1">

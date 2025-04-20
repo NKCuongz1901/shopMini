@@ -18,7 +18,14 @@ function AppFooter() {
                         <li>Delivery</li>
                         <li>Privacy policy</li>
                     </ul>
+                    <div className="flex flex-row gap-5 mt-4">
+                        <a href="">facebook</a>
+                        <a href="">Instagram</a>
+                        <a href="">LinkedLink</a>
+                        <a href="">Youtube</a>
+                    </div>
                 </div>
+
             </div>
         </div>
     )
