@@ -11,7 +11,7 @@ import LayoutAdmin from './components/layout/layout.admin.tsx'
 import DashBoardPage from './pages/admin/dashBoardPage.tsx'
 import UserAdminPage from './pages/admin/userAdminPage.tsx'
 import ProductAdminPage from './pages/admin/productAdminPage.tsx'
-import OrderAdminPage from './pages/admin/orderAdminPage.tsx'
+import CatagoryAdminPage from './pages/admin/catagoryAdminPage.tsx'
 import { AppProvider } from './components/context/app.context.tsx'
 import VerifyPage from './pages/client/verifyPage.tsx'
 
@@ -45,8 +45,8 @@ const router = createBrowserRouter([
         element: <ProductAdminPage />
       },
       {
-        path: 'order',
-        element: <OrderAdminPage />
+        path: 'category',
+        element: <CatagoryAdminPage />
       }
     ]
   },

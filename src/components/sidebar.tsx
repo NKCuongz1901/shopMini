@@ -50,10 +50,10 @@ const menuItems: MenuItem[] = [
         path: "product"
     },
     {
-        id: "order",
-        title: "Order",
+        id: "category",
+        title: "Category",
         icon: BarChart2,
-        path: "order",
+        path: "category",
     },
     {
         id: "settings",

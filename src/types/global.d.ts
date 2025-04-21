@@ -25,5 +25,25 @@ declare global {
         email: string;
         role: string
     }
+    
+   
 
 }
+
+export interface IProduct {
+        _id: string;
+        productName: string;
+        category: string;
+        quantity: number;
+        image: string;
+        price: number;
+        description: string;
+    }
+
+export interface ICategory {
+        _id: string;
+        name: string;
+        slug: string;
+        parentId: string;
+    } 
+       
