@@ -50,6 +50,11 @@ export const searchProductApi = (productName: string, minPrice: number, maxPrice
     return axios.get<IBackendRes<IProduct[]>>(urlBackend);
 }
 
+export const deleteProductApi = (id: string) => {
+    const urlBackend = `/api/v1/product/${id}`;
+    return axios.delete<IBackendRes<IProduct>>(urlBackend);
+}
+
 //upload/image
 export const uploadImageApi = (file: File) => {
     const urlBackend = "/api/v1/upload/image";

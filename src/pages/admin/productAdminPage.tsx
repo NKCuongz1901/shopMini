@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Space, Popconfirm, message } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import { getProductsApi } from '@/services/api';
+import { getProductsApi, deleteProductApi } from '@/services/api';
 import ModalProduct from '@/components/products/modal.product';
 import { IProduct } from '@/types/global';
 
@@ -15,10 +15,6 @@ const ProductAdminPage = () => {
         setLoading(true);
         try {
             const res = await getProductsApi();
-            console.log("res.data1", res);
-            1
-            // Check if the response is valid and contains data
-            console.log("res.data", res.data);
             if (Array.isArray(res)) {
                 setProducts(res);
             } else {
@@ -34,6 +30,16 @@ const ProductAdminPage = () => {
     const handleOpenModal = (product?: IProduct) => {
         setDataInit(product || null);
         setOpenModal(true);
+    };
+
+    const handleDeleteProduct = async (id: string) => {
+        try {
+            await deleteProductApi(id);
+            message.success("Xóa sản phẩm thành công!");
+            fetchProducts(); // Tải lại danh sách sản phẩm sau khi xóa
+        } catch (error) {
+            message.error("Không thể xóa sản phẩm!");
+        }
     };
 
     useEffect(() => {
@@ -98,6 +104,7 @@ const ProductAdminPage = () => {
                         title="Bạn có chắc chắn muốn xóa sản phẩm này?"
                         okText="Xác nhận"
                         cancelText="Hủy"
+                        onConfirm={() => handleDeleteProduct(record._id)} // Gọi hàm xóa sản phẩm
                     >
                         <DeleteOutlined
                             style={{ fontSize: 20, color: '#ff4d4f', cursor: 'pointer' }}
