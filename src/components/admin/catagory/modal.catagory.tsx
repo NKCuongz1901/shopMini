@@ -31,7 +31,8 @@ const ModalCatagory: React.FC<ModalCatagoryProps> = ({
     const handleSubmit = async () => {
         try {
             const values = await form.validateFields();
-
+            console.log("Form values:", values);
+            values.priority = Number(values.priority);
             if (dataInit) {
                 // Sửa danh mục
                 await updateCategoryApi(dataInit._id, values);
@@ -79,11 +80,40 @@ const ModalCatagory: React.FC<ModalCatagoryProps> = ({
                     <Input placeholder="Nhập tên danh mục" />
                 </Form.Item>
                 <Form.Item
+                    name="slug"
+                    label="Slug"
+                    rules={[{ required: true, message: "Vui lòng nhập slug!" }]}
+                >
+                    <Input placeholder="Nhập slug" />
+                </Form.Item>
+                <Form.Item
+                    name="parentId"
+                    label="Parent ID"
+                >
+                    <Input placeholder="Nhập Parent ID (nếu có)" />
+                </Form.Item>
+                <Form.Item
                     name="description"
                     label="Mô tả"
                     rules={[{ required: true, message: "Vui lòng nhập mô tả danh mục!" }]}
                 >
                     <Input.TextArea rows={4} placeholder="Nhập mô tả danh mục" />
+                </Form.Item>
+
+                <Form.Item
+                    name="priority"
+                    label="Độ ưu tiên"
+                    rules={[{ required: true, message: "Vui lòng nhập độ ưu tiên!" }]}
+                >
+                    <Input type="number" placeholder="Nhập độ ưu tiên" />
+                </Form.Item>
+
+                <Form.Item
+                    name="type"
+                    label="Loại danh mục"
+                    rules={[{ required: true, message: "Vui lòng nhập loại danh mục!" }]}
+                >
+                    <Input placeholder="Nhập loại danh mục" />
                 </Form.Item>
             </Form>
         </Modal>

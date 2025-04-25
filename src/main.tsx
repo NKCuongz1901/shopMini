@@ -14,6 +14,7 @@ import ProductAdminPage from './pages/admin/productAdminPage.tsx'
 import CatagoryAdminPage from './pages/admin/catagoryAdminPage.tsx'
 import { AppProvider } from './components/context/app.context.tsx'
 import VerifyPage from './pages/client/verifyPage.tsx'
+import ProtectedRoute from './components/share/protected-route.ts/index.tsx'
 
 const router = createBrowserRouter([
   {
@@ -38,15 +39,15 @@ const router = createBrowserRouter([
       },
       {
         path: 'user',
-        element: <UserAdminPage />,
+        element:<ProtectedRoute><UserAdminPage /></ProtectedRoute>  ,
       },
       {
         path: 'product',
-        element: <ProductAdminPage />
+        element:    <ProtectedRoute><ProductAdminPage /></ProtectedRoute>,
       },
       {
         path: 'category',
-        element: <CatagoryAdminPage />
+        element:  <ProtectedRoute><CatagoryAdminPage /></ProtectedRoute>
       }
     ]
   },

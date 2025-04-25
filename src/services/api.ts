@@ -1,5 +1,5 @@
 import axios from '@/services/axios.customize'
-import {IProduct,ICategory} from '@/types/global'; 
+import {IProduct,ICategory,IUser} from '@/types/global'; 
 
 
 export const loginApi = (email: string, password: string) => {
@@ -81,3 +81,30 @@ export const updateCategoryApi = (id: string, data: ICategory) => {
     const urlBackend = `/api/v1/category/${id}`;
     return axios.put<IBackendRes<ICategory>>(urlBackend, data);
 }
+
+export const deleteCategoryApi = (id: string) => {
+    const urlBackend = `/api/v1/category/${id}`;
+    return axios.delete<IBackendRes<ICategory>>(urlBackend);
+}
+
+// user
+export const  getListUsers = () => {
+    const urlBackend = "/api/v1/auth/user";
+    return axios.get<IBackendRes<IUser[]>>(urlBackend);
+}
+
+export const creatUser = (data: IUser) => {
+    const urlBackend = "/api/v1/auth/user";
+    return axios.post<IBackendRes<IUser>>(urlBackend, data);
+}
+
+export const updateUser = (id: string, data: IUser) => {
+    const urlBackend = `/api/v1/auth/user/${id}`;
+    return axios.patch<IBackendRes<IUser>>(urlBackend, data);
+}
+
+export const deleteUser = (id: string) => {
+    const urlBackend = `/api/v1/auth/user/${id}`;
+    return axios.delete<IBackendRes<IUser>>(urlBackend);
+}
+

@@ -1,10 +1,10 @@
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { Form, Modal, Upload, Input, Button, message, InputNumber } from "antd";
+import { Form, Modal, Upload, Input, Button, message, InputNumber, Select } from "antd";
 import { useEffect, useState } from "react";
-import { uploadImageApi, updateProductApi, createProductApi } from "@/services/api";
+import { uploadImageApi, updateProductApi, createProductApi, getCategoriesApi } from "@/services/api";
 import React from "react";
 import { IProduct } from "@/types/global";
-
+ 
 interface ModalProductProps {
     openModal: boolean;
     setOpenModal: (open: boolean) => void;
@@ -23,6 +23,27 @@ const ModalProduct: React.FC<ModalProductProps> = ({
     const [form] = Form.useForm();
     const [loadingUpload, setLoadingUpload] = useState(false);
     const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [categories, setCategories] = useState<{ label: string; value: string }[]>([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const res = await getCategoriesApi();
+                if (Array.isArray(res)) {
+                    const options = res.map((cat: any) => ({
+                        label: cat.name,
+                        value: cat._id,
+                    }));
+                    console.log("lllll:",options);
+                    setCategories(options);
+                }
+            } catch (error) {
+                message.error("Không thể tải danh mục sản phẩm");
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     useEffect(() => {
         if (dataInit) {
@@ -38,11 +59,8 @@ const ModalProduct: React.FC<ModalProductProps> = ({
         try {
             setLoadingUpload(true);
             const response: any = await uploadImageApi(file);
-            console.log("response", response);
-            console.log("image url", response.data?.url); // ✅ truy cập đúng trường
-    
             if (response && response.data) {
-                setImageUrl(response.data?.url); // ✅ cập nhật đường dẫn ảnh
+                setImageUrl(response.data?.url);
                 message.success("Upload ảnh thành công!");
             }
         } catch (error) {
@@ -51,7 +69,6 @@ const ModalProduct: React.FC<ModalProductProps> = ({
             setLoadingUpload(false);
         }
     };
-    
 
     const beforeUpload = (file: File) => {
         const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
@@ -74,11 +91,9 @@ const ModalProduct: React.FC<ModalProductProps> = ({
             }
 
             if (dataInit) {
-                // Sửa sản phẩm
                 await updateProductApi(dataInit._id, { ...values, image: imageUrl });
                 message.success("Sửa sản phẩm thành công!");
             } else {
-                // Thêm sản phẩm
                 await createProductApi({ ...values, image: imageUrl });
                 message.success("Thêm sản phẩm thành công!");
             }
@@ -101,7 +116,7 @@ const ModalProduct: React.FC<ModalProductProps> = ({
     return (
         <Modal
             title={dataInit ? "Sửa sản phẩm" : "Thêm sản phẩm"}
-            visible={openModal}
+            open={openModal}
             onCancel={handleCancel}
             footer={[
                 <Button key="cancel" onClick={handleCancel}>
@@ -123,9 +138,14 @@ const ModalProduct: React.FC<ModalProductProps> = ({
                 <Form.Item
                     name="category"
                     label="Danh mục"
-                    rules={[{ required: true, message: "Vui lòng nhập danh mục sản phẩm!" }]}
+                    rules={[{ required: true, message: "Vui lòng chọn danh mục sản phẩm!" }]}
                 >
-                    <Input placeholder="Nhập danh mục sản phẩm" />
+                    <Select
+                        placeholder="Chọn danh mục"
+                        options={categories}
+                        showSearch
+                        optionFilterProp="label"
+                    />
                 </Form.Item>
                 <Form.Item
                     name="quantity"

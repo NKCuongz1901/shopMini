@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Space, Popconfirm, message } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import { getCategoriesApi } from '@/services/api';
-import ModalCatagory from '@/components/catagory/modal.catagory';
+import { getCategoriesApi, deleteCategoryApi } from '@/services/api';
+import ModalCatagory from '@/components/admin/catagory/modal.catagory';
 import { ICategory } from '@/types/global';
 
 const CatagoryAdminPage = () => {
@@ -38,6 +38,16 @@ const CatagoryAdminPage = () => {
         setOpenModal(true);
     };
 
+    const handleDeleteCategory = async (id: string) => {
+        try {
+            await deleteCategoryApi(id);
+            message.success("Xóa danh mục thành công!");
+            fetchCategories(); // Tải lại danh sách sau khi xóa
+        } catch (error) {
+            message.error("Không thể xóa danh mục!");
+        }
+    };
+
     useEffect(() => {
         fetchCategories();
     }, []);
@@ -69,6 +79,32 @@ const CatagoryAdminPage = () => {
             }
         },
         {
+            title: 'Mô tả',
+            dataIndex: 'description',
+            key: 'description',
+        },
+        {
+            title: 'Độ ưu tiên',
+            dataIndex: 'priority',
+            key: 'priority',
+        },
+        {
+            title: 'Loại danh mục',
+            dataIndex: 'type',
+            key: 'type',
+        },
+        {
+            title : 'CreatedAt',
+            dataIndex: 'createdAt',
+            key: 'createdAt',
+        },
+        {
+            title : 'UpdatedAt',
+            dataIndex: 'updatedAt',
+            key: 'updatedAt',
+        },
+
+        {
             title: 'Hành động',
             key: 'actions',
             render: (_text: any, record: ICategory) => (
@@ -81,9 +117,7 @@ const CatagoryAdminPage = () => {
                         title="Bạn có chắc chắn muốn xóa danh mục này?"
                         okText="Xác nhận"
                         cancelText="Hủy"
-                        onConfirm={() => {
-                            message.warning("Chức năng xóa chưa được cài đặt");
-                        }}
+                        onConfirm={() => handleDeleteCategory(record._id)} // Gọi hàm xóa
                     >
                         <DeleteOutlined
                             style={{ fontSize: 20, color: '#ff4d4f', cursor: 'pointer' }}
