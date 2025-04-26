@@ -54,3 +54,14 @@ export interface ICategory {
         address: string;
         role: string;
     }
+
+    export interface IOrder {
+        _id: string;
+        userId: string;
+        items : IProduct[];
+        totalPrice: number;
+        paymentMethod: string;
+        shippingAddress: string;
+        phone: string;
+        status: string;
+    }
