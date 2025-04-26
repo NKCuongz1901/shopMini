@@ -24,7 +24,7 @@ const ProtectedRoute = (props: any) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await getMe(); // Gọi API getMe
+                const response :any = await getMe(); // Gọi API getMe
                 console.log("Response from getMe:", response);
                 setIsAuthenticated(true);
                 setUserRole(response.data?.user.role); // Lấy role từ API

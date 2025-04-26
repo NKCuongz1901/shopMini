@@ -1,5 +1,5 @@
 import axios from '@/services/axios.customize'
-import {IProduct,ICategory,IUser} from '@/types/global'; 
+import {IProduct,ICategory,IUser,IOrder} from '@/types/global'; 
 
 
 export const loginApi = (email: string, password: string) => {
@@ -108,3 +108,13 @@ export const deleteUser = (id: string) => {
     return axios.delete<IBackendRes<IUser>>(urlBackend);
 }
 
+//order
+export const getOrdersApiByIdUser = (id: string) => {
+    const urlBackend = `/api/v1/order/${id}`;
+    return axios.get<IBackendRes<IOrder>>(urlBackend);
+}
+
+export const getListOrders = () => {
+    const urlBackend = `/api/v1/order/`;
+    return axios.get<IBackendRes<IOrder[]>>(urlBackend);
+}

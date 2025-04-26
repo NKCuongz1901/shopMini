@@ -35,7 +35,7 @@ const menuItems: MenuItem[] = [
         id: "dashboard",
         title: "Dashboard",
         icon: Home,
-        path: "/",
+        path: "darshboard",
     },
     {
         id: "users",
@@ -55,6 +55,13 @@ const menuItems: MenuItem[] = [
         icon: BarChart2,
         path: "category",
     },
+    {
+        id:"order",
+        title: "Order",
+        icon: ShoppingCart,
+        path: "order"
+    }
+    ,
     {
         id: "settings",
         title: "Settings",

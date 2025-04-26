@@ -12,6 +12,7 @@ import DashBoardPage from './pages/admin/dashBoardPage.tsx'
 import UserAdminPage from './pages/admin/userAdminPage.tsx'
 import ProductAdminPage from './pages/admin/productAdminPage.tsx'
 import CatagoryAdminPage from './pages/admin/catagoryAdminPage.tsx'
+import OrderAdminPage from './pages/admin/orderAdminPage.tsx'
 import { AppProvider } from './components/context/app.context.tsx'
 import VerifyPage from './pages/client/verifyPage.tsx'
 import ProtectedRoute from './components/share/protected-route.ts/index.tsx'
@@ -48,7 +49,15 @@ const router = createBrowserRouter([
       {
         path: 'category',
         element:  <ProtectedRoute><CatagoryAdminPage /></ProtectedRoute>
-      }
+      },
+      {
+        path: 'order',
+        element:  <ProtectedRoute><OrderAdminPage /></ProtectedRoute>
+      },
+      {
+        path: 'darshboard',
+        element:  <ProtectedRoute><DashBoardPage /></ProtectedRoute>
+      },
     ]
   },
 
