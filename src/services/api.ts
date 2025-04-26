@@ -108,6 +108,11 @@ export const deleteUser = (id: string) => {
     return axios.delete<IBackendRes<IUser>>(urlBackend);
 }
 
+export const getUserByIdApi = (id: string) => {
+    const urlBackend = `/api/v1/auth/user/${id}`;
+    return axios.get<IBackendRes<IUser>>(urlBackend);
+}
+
 //order
 export const getOrdersApiByIdUser = (id: string) => {
     const urlBackend = `/api/v1/order/${id}`;
