@@ -1,5 +1,6 @@
 import Advantages from "@/components/advantages"
 import Banner from "@/components/banner"
+import BestSeller from "@/components/bestSeller"
 import Category from "@/components/category"
 import Hero from "@/components/hero"
 
@@ -10,6 +11,7 @@ function Homepage() {
             <Category />
             <Advantages />
             <Banner />
+            <BestSeller />
         </>
     )
 }

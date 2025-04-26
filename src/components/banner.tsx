@@ -3,7 +3,7 @@ import { Button } from "./ui/button"
 
 function Banner() {
     return (
-        <div className="px-10 py-10 min-h-[550px]">
+        <div className="px-10 mt-5  ">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-brandRed text-white text-3xl rounded-3xl items-center ">
                 <div data-aos="zoom-out" data-aos-duration="500" data-aos-once="false" className="p-6 sm:p-8">
                     <p className="text-sm">30% OFF</p>

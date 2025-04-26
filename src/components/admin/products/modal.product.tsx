@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { uploadImageApi, updateProductApi, createProductApi, getCategoriesApi } from "@/services/api";
 import React from "react";
 import { IProduct } from "@/types/global";
- 
+
 interface ModalProductProps {
     openModal: boolean;
     setOpenModal: (open: boolean) => void;
@@ -34,7 +34,7 @@ const ModalProduct: React.FC<ModalProductProps> = ({
                         label: cat.name,
                         value: cat._id,
                     }));
-                    console.log("lllll:",options);
+                    console.log("lllll:", options);
                     setCategories(options);
                 }
             } catch (error) {
