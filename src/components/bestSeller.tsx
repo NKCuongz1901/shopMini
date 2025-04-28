@@ -1,4 +1,3 @@
-import categoryImg4 from "@/assets/img/gaming.png"
 import { Button } from "./ui/button"
 import { CiHeart } from "react-icons/ci"
 import { Rate } from "antd"
@@ -28,7 +27,7 @@ function BestSeller() {
             <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 flex-col items-center gap-6 pb-14 w-full mt-6">
                 {productData.map((item, index) => {
                     return (
-                        <div className="flex flex-col items-start cursor-pointer max-w-[200px]">
+                        <div className="flex flex-col items-start cursor-pointer max-w-[200px]" key={index}>
                             <div className="cursor-pointer group relative bg-gray-500/10 rounded-lg w-full h-52 flex items-center justify-center">
                                 <img src={item.image} alt="" className="group-hover:scale-105 transition object-cover w-4/5 h-4/5 md:w-40 md:h-40 " width={500} height={500} />
                                 <Button className="absolute rounded-full bg-white top-2 right-2 ">

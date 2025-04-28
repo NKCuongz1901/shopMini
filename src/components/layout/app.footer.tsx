@@ -2,7 +2,7 @@ import logo from "@/assets/img/logo.png"
 
 function AppFooter() {
     return (
-        <div className="w-full mx-auto p-20">
+        <div className="w-full mx-auto px-10">
             <div className="flex flex-col  sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm">
                 <div>
                     <img src={logo} alt="" className="mb-5 w-32" />

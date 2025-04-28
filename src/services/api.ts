@@ -1,5 +1,5 @@
 import axios from '@/services/axios.customize'
-import {IProduct,ICategory,IUser,IOrder} from '@/types/global'; 
+import { IProduct, ICategory, IUser, IOrder } from '@/types/global';
 
 
 export const loginApi = (email: string, password: string) => {
@@ -50,6 +50,12 @@ export const searchProductApi = (productName: string, minPrice: number, maxPrice
     return axios.get<IBackendRes<IProduct[]>>(urlBackend);
 }
 
+export const fetchProductByQuery = (query: string) => {
+    const urlBackend = `/api/v1/product/search?${query}`;
+    return axios.get<IProduct>(urlBackend);
+}
+
+
 export const deleteProductApi = (id: string) => {
     const urlBackend = `/api/v1/product/${id}`;
     return axios.delete<IBackendRes<IProduct>>(urlBackend);
@@ -88,7 +94,7 @@ export const deleteCategoryApi = (id: string) => {
 }
 
 // user
-export const  getListUsers = () => {
+export const getListUsers = () => {
     const urlBackend = "/api/v1/auth/user";
     return axios.get<IBackendRes<IUser[]>>(urlBackend);
 }
