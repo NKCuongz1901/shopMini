@@ -45,11 +45,6 @@ export const updateProductApi = (id: string, data: IProduct) => {
     return axios.put<IBackendRes<IProduct>>(urlBackend, data);
 }
 
-export const searchProductApi = (productName: string, minPrice: number, maxPrice: number) => {
-    const urlBackend = `/api/v1/product/search?productName=${productName}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
-    return axios.get<IBackendRes<IProduct[]>>(urlBackend);
-}
-
 export const fetchProductByQuery = (query: string) => {
     const urlBackend = `/api/v1/product/search?${query}`;
     return axios.get<IProduct>(urlBackend);

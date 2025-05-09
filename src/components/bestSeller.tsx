@@ -3,7 +3,7 @@ import { CiHeart } from "react-icons/ci"
 import { Rate } from "antd"
 import { useEffect, useState } from "react"
 import { getProductsApi } from "@/services/api"
-import { IProduct } from "@/types/global"
+
 
 function BestSeller() {
     const [productData, setProductData] = useState([]);
@@ -11,7 +11,7 @@ function BestSeller() {
         const fetchProduct = async () => {
             try {
                 const res = await getProductsApi();
-                console.log("Check res", res);
+                console.log("Check res best seller", res);
                 setProductData(res.slice(0, 5));
             } catch (error) {
                 console.log("Cant fetch all product");

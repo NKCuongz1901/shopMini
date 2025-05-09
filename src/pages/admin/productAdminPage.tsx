@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Table, Button, Space, Popconfirm, message } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { getProductsApi, deleteProductApi,getCategoriesApi } from '@/services/api';
 import ModalProduct from '@/components/admin/products/modal.product';
 import { IProduct } from '@/types/global';
-import { data } from 'react-router';
+
 
 const ProductAdminPage = () => {
     const [products, setProducts] = useState<IProduct[]>([]);
