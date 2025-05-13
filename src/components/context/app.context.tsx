@@ -9,6 +9,8 @@ interface IAppContext {
     setUser: (v: IUser | null) => void;
     isAppLoading: boolean;
     setIsAppLoading: (v: boolean) => void;
+   
+
 
 }
 
@@ -22,8 +24,8 @@ export const AppProvider = (props: TProps) => {
     const [isAuthenticated, setIsAuthenticate] = useState<boolean>(false);
     const [user, setUser] = useState<IUser | null>(null);
     const [isAppLoading, setIsAppLoading] = useState<boolean>(true);
-
-
+   
+    console.log("Check user", user);
     const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
     useEffect(() => {
@@ -55,13 +57,13 @@ export const AppProvider = (props: TProps) => {
         };
         fetchUser();
     }, [])
-
+    
 
     return (
         <>
             {isAppLoading === false ?
                 <CurrentAppContext.Provider value={{
-                    isAuthenticated, setIsAuthenticate, user, setUser, isAppLoading, setIsAppLoading
+                    isAuthenticated, setIsAuthenticate, user, setUser, isAppLoading, setIsAppLoading,
                 }}>
                     {props.children}
                 </CurrentAppContext.Provider>

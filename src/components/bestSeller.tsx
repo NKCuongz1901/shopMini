@@ -11,7 +11,6 @@ function BestSeller() {
         const fetchProduct = async () => {
             try {
                 const res = await getProductsApi();
-                console.log("Check res best seller", res);
                 setProductData(res.slice(0, 5));
             } catch (error) {
                 console.log("Cant fetch all product");

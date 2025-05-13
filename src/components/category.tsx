@@ -5,6 +5,7 @@ import categoryImg4 from "@/assets/img/gaming.png"
 import categoryImg5 from "@/assets/img/vr.png"
 import categoryImg6 from "@/assets/img/speaker.png"
 import { Button } from "./ui/button"
+import { Link } from "react-router"
 function Category() {
     return (
         <div className="px-10 py-8">
@@ -46,7 +47,9 @@ function Category() {
                         <p className="mb-[2px] text-white">Enjoy</p>
                         <p className="text-2xl text-white font-semibold mb-[2px]">With</p>
                         <p className="text-4xl xl:text-5xl font-bold opacity-40 mb-3">Playstation 5</p>
-                        <Button className="bg-brandRed text-white cursor-pointer hover:scale-105 duration-300 py-2 px-8 rounded-full relative z-10">Browse</Button>
+                        <Button className="bg-brandRed text-white cursor-pointer hover:scale-105 duration-300 py-2 px-8 rounded-full relative z-10">
+                            <Link to="/product">Browse</Link>
+                        </Button>
                     </div>
                     <img src={categoryImg4} alt="" className="w=[320px] absolute -right-0 bottom-0" />
                 </div>

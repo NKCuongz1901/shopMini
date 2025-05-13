@@ -20,7 +20,17 @@ declare global {
             }
         }
     }
-
+    interface IAddCart{
+        userId: string;
+        productId: string;
+        quantity: number;
+    }
+    interface ICart{
+        _id: string;
+        userId: string;
+        items:string[];
+        totalPrice: number;
+    }
     
    
 

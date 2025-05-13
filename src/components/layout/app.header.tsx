@@ -9,10 +9,15 @@ import { useCurrentApp } from "../context/app.context"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { Avatar, AvatarImage } from "../ui/avatar"
 import { Badge } from "antd"
+import { useEffect, useState } from "react"
+import { getCartApi } from "@/services/api"
+
 
 function AppHeader() {
     const { user, isAuthenticated, setUser, setIsAuthenticate } = useCurrentApp();
-
+    const [cart, setCart] = useState<ICart | null>(null);
+    const [cartCount, setCartCount] = useState<number>(0);
+    console.log("check cart", cart);
 
     const handleLogout = () => {
         localStorage.removeItem("access_token");
@@ -20,7 +25,20 @@ function AppHeader() {
         setUser(null);
         setIsAuthenticate(false);
     }
-
+    useEffect(() => {
+        const fetchCart = async () => {
+            try {
+                const res = await getCartApi(user?.id);
+                if(res){
+                    setCart(res);
+                    setCartCount(res.items.length);
+                }
+            } catch (error) {
+                console.error("Error fetching cart:", error);
+            }
+        }
+        fetchCart();
+    },[])
 
 
     return (
@@ -46,7 +64,7 @@ function AppHeader() {
             <div className="flex items-center gap-6">
                 <Input type="text" placeholder="Do you looking for what" className="border border-amber-100 rounded-2xl" />
             <div className="p-2">
-                <Badge className="" size="default" count={10}>
+                <Badge className="" size="default" count={cartCount}>
                     <img src={cartIcon} alt="" className="w-8 cursor-pointer" />
                 </Badge>
             </div>

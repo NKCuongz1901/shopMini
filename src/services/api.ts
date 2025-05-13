@@ -33,7 +33,7 @@ export const getProductsApi = () => {
     return axios.get<IBackendRes<IProduct[]>>(urlBackend);
 }
 export const getProductByIdApi = (id: string) => {
-    const urlBackend = `/api/v1/products/${id}`;
+    const urlBackend = `/api/v1/product/${id}`;
     return axios.get<IBackendRes<IProduct>>(urlBackend);
 }
 export const createProductApi = (data: IProduct) => {
@@ -123,4 +123,15 @@ export const getOrdersApiByIdUser = (id: string) => {
 export const getListOrders = () => {
     const urlBackend = `/api/v1/order/`;
     return axios.get<IBackendRes<IOrder[]>>(urlBackend);
+}
+
+//cart
+export const addToCartApi = (data: IAddCart) => {
+    const urlBackend = `/api/v1/cart`;
+    return axios.post<IBackendRes<IAddCart>>(urlBackend, data);
+}
+
+export const getCartApi = (id: string) => {
+    const urlBackend = `/api/v1/cart/${id}`;
+    return axios.get<IBackendRes<ICart>>(urlBackend);
 }

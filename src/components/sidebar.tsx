@@ -66,7 +66,7 @@ const menuItems: MenuItem[] = [
         id: "settings",
         title: "Settings",
         icon: Settings,
-        path: "/settings",
+        path: "/",
     },
     {
         id: "help",

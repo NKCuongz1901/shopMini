@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { fetchProductByQuery, getCategoriesApi } from "@/services/api"
 import { ICategory, IProduct } from "@/types/global"
+import { useNavigate } from "react-router"
 
 export default function ProductCollection() {
     const [sortOrder, setSortOrder] = useState("default")
@@ -13,7 +14,7 @@ export default function ProductCollection() {
     const [productData, setProductData] = useState<IProduct[]>([]);
     const [loading, setLoading] = useState(false);
     const [categoryData, setCategoryData] = useState<ICategory[]>([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchCategory = async () => {
             try {
@@ -28,7 +29,6 @@ export default function ProductCollection() {
         fetchCategory();
     }, []);
     
-    console.log("check category",categoryData);
     useEffect(() => {
         fetchProducts();
     }, [selectedCategories, minPrice, maxPrice, sortOrder]);
@@ -158,7 +158,11 @@ export default function ProductCollection() {
                 ) : (
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
                         {productData.map((product, index) => (
-                            <div key={index} className="bg-white rounded-lg shadow p-3 hover:shadow-lg transition cursor-pointer">
+                            <div 
+                            key={index} 
+                            className="bg-white rounded-lg shadow p-3 hover:shadow-lg transition cursor-pointer"
+                            onClick={() => navigate(`/product/${product._id}`)}
+                            >
                                 <div className="aspect-square overflow-hidden rounded-lg bg-gray-100 mb-2">
                                     <img
                                         src={product.image || "/placeholder.svg"}
@@ -166,7 +170,7 @@ export default function ProductCollection() {
                                         className="h-full w-full object-cover object-center"
                                     />
                                 </div>
-                                <div className="text-xs text-gray-500 mb-1">{product.brand || product.categoryName}</div>
+                                
                                 <h3 className="text-sm font-medium">{product.productName}</h3>
                                 <p className="mt-1 text-sm font-bold text-blue-600">
                                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}
