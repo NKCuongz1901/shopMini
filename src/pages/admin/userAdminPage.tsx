@@ -4,6 +4,10 @@ import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { getListUsers, deleteUser } from "@/services/api";
 import ModalUser from "@/components/admin/user/modal.user";
 import { IUser } from "@/types/global";
+import dayjs from 'dayjs';
+import 'dayjs/locale/vi';
+
+dayjs.locale('vi');
 
 const UserAdminPage = () => {
     const [users, setUsers] = useState<IUser[]>([]);
@@ -77,11 +81,13 @@ const UserAdminPage = () => {
             title : 'CreatedAt',
             dataIndex: 'createdAt',
             key: 'createdAt',
+            render: (date: string) => dayjs(date).format('DD/MM/YYYY'),
         },
         {
             title : 'UpdatedAt',
             dataIndex: 'updatedAt',
             key: 'updatedAt',
+            render: (date: string) => dayjs(date).format('DD/MM/YYYY'),
         },
         {
             title: "Hành động",

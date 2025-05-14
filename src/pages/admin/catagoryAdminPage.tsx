@@ -4,6 +4,10 @@ import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { getCategoriesApi, deleteCategoryApi } from '@/services/api';
 import ModalCatagory from '@/components/admin/catagory/modal.catagory';
 import { ICategory } from '@/types/global';
+import dayjs from 'dayjs';
+import 'dayjs/locale/vi';
+
+dayjs.locale('vi');
 
 const CatagoryAdminPage = () => {
     const [categories, setCategories] = useState<ICategory[]>([]);
@@ -97,11 +101,13 @@ const CatagoryAdminPage = () => {
             title : 'CreatedAt',
             dataIndex: 'createdAt',
             key: 'createdAt',
+            render: (date: string) => dayjs(date).format('DD/MM/YYYY'),
         },
         {
             title : 'UpdatedAt',
             dataIndex: 'updatedAt',
             key: 'updatedAt',
+            render: (date: string) => dayjs(date).format('DD/MM/YYYY'),
         },
 
         {

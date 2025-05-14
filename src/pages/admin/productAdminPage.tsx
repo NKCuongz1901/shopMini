@@ -4,7 +4,10 @@ import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { getProductsApi, deleteProductApi,getCategoriesApi } from '@/services/api';
 import ModalProduct from '@/components/admin/products/modal.product';
 import { IProduct } from '@/types/global';
+import dayjs from 'dayjs';
+import 'dayjs/locale/vi';
 
+dayjs.locale('vi');
 
 const ProductAdminPage = () => {
     const [products, setProducts] = useState<IProduct[]>([]);
@@ -122,11 +125,13 @@ const ProductAdminPage = () => {
             title : 'CreatedAt',
             dataIndex: 'createdAt',
             key: 'createdAt',
+            render: (date: string) => dayjs(date).format('DD/MM/YYYY'),
         },
         {
             title : 'UpdatedAt',
             dataIndex: 'updatedAt',
             key: 'updatedAt',
+            render: (date: string) => dayjs(date).format('DD/MM/YYYY'),
         },
         {
             title: 'Hành động',
