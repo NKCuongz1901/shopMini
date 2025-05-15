@@ -15,7 +15,7 @@ function ProductDetailPage() {
         if(id){
             const fetchProductDetail = async () => {
                 try {
-                    const res = await getProductByIdApi(id);
+                    const res:any = await getProductByIdApi(id);
                     if(res){
                         setCurrentProductData(res);
                     }

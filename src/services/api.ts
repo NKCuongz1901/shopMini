@@ -1,5 +1,5 @@
 import axios from '@/services/axios.customize'
-import { IProduct, ICategory, IUser, IOrder } from '@/types/global';
+import { IProduct, ICategory, IUser, IOrder, ICreateOrderPayload } from '@/types/global';
 
 
 export const loginApi = (email: string, password: string) => {
@@ -131,7 +131,29 @@ export const addToCartApi = (data: IAddCart) => {
     return axios.post<IBackendRes<IAddCart>>(urlBackend, data);
 }
 
+export const updateToCartApi = (data: IUpdateCart) => {
+    const urlBackend = `/api/v1/cart/update`;
+    return axios.patch<IBackendRes<any>>(urlBackend, data);
+}
+
 export const getCartApi = (id: string) => {
     const urlBackend = `/api/v1/cart/${id}`;
     return axios.get<IBackendRes<ICart>>(urlBackend);
+}
+
+//delete cart
+export const deleteCartApi = (data: ICartRemove) => {
+    const urlBackend = `/api/v1/cart/remove`;
+    return axios.delete<IBackendRes<any>>(urlBackend, { data });
+}
+
+export const deleteItemCartApi = (data: ICartRemoveProduct) => {
+    const urlBackend = `/api/v1/cart/remove-product`;
+    return axios.delete<IBackendRes<any>>(urlBackend, { data });
+}
+
+//order
+export const createOrderApi = (data: ICreateOrderPayload) => {
+    const urlBackend = `/api/v1/order`;
+    return axios.post<IBackendRes<any>>(urlBackend, data);
 }
