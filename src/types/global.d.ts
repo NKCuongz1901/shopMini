@@ -1,3 +1,5 @@
+import exp from "constants";
+
 export { };
 declare global {
     interface IBackendRes<T> {
@@ -25,11 +27,23 @@ declare global {
         productId: string;
         quantity: number;
     }
+    interface IUpdateCart{
+        userId: string;
+        productId: string;
+        quantity: number;
+    }
     interface ICart{
         _id: string;
         userId: string;
         items:string[];
         totalPrice: number;
+    }
+    interface ICartRemove{
+        userId: string;
+    }
+    interface ICartRemoveProduct{
+        userId: string;
+        productId: string;
     }
     
    
@@ -75,3 +89,12 @@ export interface ICategory {
         phone: string;
         status: string;
     }
+
+    // 👇 Interface đúng với request body backend mong muốn
+export interface ICreateOrderPayload {
+  userId: string;
+  shippingAddress: string;
+  phone: string;
+  paymentMethod: string;
+  productIds: string[];
+}

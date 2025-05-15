@@ -1,6 +1,7 @@
 import logo from "@/assets/img/logo.png"
 import profileIcon from "@/assets/img/profile_icon.png"
 import cartIcon from "@/assets/img/cart_icon.png"
+import { useNavigate } from "react-router-dom";
 
 import { Link, NavLink } from "react-router"
 import { Input } from "../ui/input"
@@ -18,6 +19,7 @@ function AppHeader() {
     const [cart, setCart] = useState<ICart | null>(null);
     const [cartCount, setCartCount] = useState<number>(0);
     console.log("check cart", cart);
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         localStorage.removeItem("access_token");
@@ -28,7 +30,7 @@ function AppHeader() {
     useEffect(() => {
         const fetchCart = async () => {
             try {
-                const res = await getCartApi(user?.id);
+                const res:any = await getCartApi(user?.id);
                 if(res){
                     setCart(res);
                     setCartCount(res.items.length);
@@ -65,7 +67,7 @@ function AppHeader() {
                 <Input type="text" placeholder="Do you looking for what" className="border border-amber-100 rounded-2xl" />
             <div className="p-2">
                 <Badge className="" size="default" count={cartCount}>
-                    <img src={cartIcon} alt="" className="w-8 cursor-pointer" />
+                    <img src={cartIcon} alt="" className="w-8 cursor-pointer" onClick={() => navigate("/order")} />
                 </Badge>
             </div>
                 {!isAuthenticated ?

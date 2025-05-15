@@ -5,6 +5,7 @@ import { useCurrentApp } from "./context/app.context";
 import { toast } from "sonner";
 import { addToCartApi } from "@/services/api";
 import { Toaster } from "./ui/sonner";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
     currentProductData: IProduct | null;
@@ -14,6 +15,7 @@ function ProductDetailCard(props: IProps) {
     const {user, isAuthenticated} = useCurrentApp();
     const { currentProductData } = props;
     const [quantity, setQuantity] = useState(1);
+        const navigate = useNavigate();
     
     console.log("check user", user);
     if (!currentProductData) return null;
@@ -45,6 +47,34 @@ function ProductDetailCard(props: IProps) {
             toast.error("Có lỗi xảy ra, vui lòng thử lại!");
         }
     };
+
+    const handleBuyNow = async () => {
+        if (!isAuthenticated || !user) {
+            toast.warning("Bạn cần đăng nhập để mua hàng!");
+            return;
+        }
+
+          try {
+        // Gọi API thêm vào giỏ hàng (có thể không cần nếu bạn xử lý trực tiếp ở trang Order)
+        console.log("user", quantity);
+        const res = await addToCartApi({
+            userId: user._id || user.id, // dùng _id nếu dùng MongoDB
+            productId: currentProductData._id,
+            quantity,
+        });
+        console.log("res", res);
+
+
+
+        // Chuyển sang trang đặt hàng, truyền dữ liệu qua state
+       navigate('/order', { state: { productId: currentProductData._id, quantity } });
+    } catch (error) {
+        console.error("Buy now error:", error);
+        toast.error("Có lỗi xảy ra khi mua hàng!");
+    }
+        
+    };
+
     
     return (
         <div className="flex flex-col lg:flex-row gap-8 bg-white rounded-lg shadow p-4 w-full max-w-5xl mx-auto">
@@ -94,7 +124,7 @@ function ProductDetailCard(props: IProps) {
                     </div>
                     <div className="flex gap-2 w-full">
                         <Button className="flex-1" variant="outline" onClick={() => {handleAddToCart()}}>Add to cart</Button>
-                        <Button className="flex-1" variant="outline">Buy Now</Button>
+                         <Button className="flex-1" variant="outline" onClick={handleBuyNow}>Buy Now</Button>
                     </div>
                 </div>
             </div>

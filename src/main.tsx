@@ -17,6 +17,8 @@ import { AppProvider } from './components/context/app.context.tsx'
 import VerifyPage from './pages/client/verifyPage.tsx'
 import ProtectedRoute from './components/share/protected-route.ts/index.tsx'
 import ProductDetailPage from './pages/client/productDetailPage.tsx'
+import OrderPage from './pages/client/orderPage.tsx'
+import MyOrdersPage from './pages/client/myOrderPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -33,7 +35,16 @@ const router = createBrowserRouter([
       {
         path: "/product/:id",
         element: <ProductDetailPage/>,
-      }
+      },
+      { 
+        path: "/order",
+        element: <OrderPage />
+      },
+      {
+        path:"/my-orders", 
+        element:<MyOrdersPage />
+      },
+
     ]
   },
   {

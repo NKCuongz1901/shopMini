@@ -18,7 +18,7 @@ export default function ProductCollection() {
     useEffect(() => {
         const fetchCategory = async () => {
             try {
-                const res = await getCategoriesApi();
+                const res:any = await getCategoriesApi();
                 if (res) {
                     setCategoryData(res);
                 }
