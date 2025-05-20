@@ -19,6 +19,7 @@ import ProtectedRoute from './components/share/protected-route.ts/index.tsx'
 import ProductDetailPage from './pages/client/productDetailPage.tsx'
 import OrderPage from './pages/client/orderPage.tsx'
 import MyOrdersPage from './pages/client/myOrderPage.tsx'
+import VnpayReturnHandler from './components/VnpayReturnPage .tsx'
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path:"/my-orders", 
         element:<MyOrdersPage />
+      },
+      {
+        path: "/vnpay-return",
+        element: <VnpayReturnHandler />   
       },
 
     ]

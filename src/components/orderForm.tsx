@@ -74,7 +74,7 @@ const OrderForm: React.FC<IOrderFormProps> = ({ userId, onSubmit }) => {
                 >
                     <option value="COD">Cash on Delivery (COD)</option>
                     <option value="Credit Card">Credit Card</option>
-                    <option value="PayPal">PayPal</option>
+                    <option value="BANK_TRANSFER">PayPal</option>
                 </select>
             </div>
 
