@@ -157,3 +157,9 @@ export const createOrderApi = (data: ICreateOrderPayload) => {
     const urlBackend = `/api/v1/order`;
     return axios.post<IBackendRes<any>>(urlBackend, data);
 }
+
+//payment return
+export const vnpayReturnApi = (data: any) => {
+    const urlBackend = `/api/v1/payment/vnpay-return`;
+    return axios.get<IBackendRes<any>>(urlBackend, { params: data });
+}

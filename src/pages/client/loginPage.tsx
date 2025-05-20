@@ -18,7 +18,7 @@ function LoginPage() {
     } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = async (values) => {
 
-        const res = await loginApi(values.email, values.password);
+        const res:any = await loginApi(values.email, values.password);
         if (res.data) {
             toast.success("Login Successful");
             setIsAuthenticate(true);

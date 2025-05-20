@@ -9,32 +9,43 @@ const OrderPage = () => {
     const { user } = useCurrentApp();
     const navigate = useNavigate();
 
-    const handleOrderSubmit = async (orderData: {
-    userId: string;
-    shippingAddress: string;
-    phone: string;
-    paymentMethod: string;
-    selectedProductIds: string[]; // Đây là từ OrderForm
+ const handleOrderSubmit = async (orderData: {
+  userId: string;
+  shippingAddress: string;
+  phone: string;
+  paymentMethod: string;
+  selectedProductIds: string[];
 }) => {
-    try {
-        // ⚠️ Đổi tên selectedProductIds thành productIds để đúng với ICreateOrderPayload
-        const { selectedProductIds, ...rest } = orderData;
-        const res = await createOrderApi({
-            ...rest,
-            productIds: selectedProductIds, // ✅ Đúng tên kiểu yêu cầu
-        });
+  try {
+    const { selectedProductIds, ...rest } = orderData;
 
-        if (res) {
-            toast.success("Đặt hàng thành công!");
-            navigate("/my-orders");
-        } else {
-            toast.error("Đặt hàng thất bại!");
-        }
-    } catch (error) {
-        console.error("Lỗi khi tạo đơn hàng:", error);
-        toast.error("Có lỗi xảy ra khi đặt hàng!");
+    const res:any = await createOrderApi({
+      ...rest,
+      productIds: selectedProductIds,
+    });
+
+    console.log('API response:', res);
+
+    if (!res) {
+      toast.error('Đặt hàng thất bại!');
+      return;
     }
+
+    /* 🔑 1. Nếu backend trả paymentUrl (thanh toán VNPay) → redirect */
+    if (res.paymentUrl) {
+      window.location.href = res.paymentUrl;     // sang trang VNPay
+      return;                                    // dừng tại đây
+    }
+
+    /* 🔑 2. Không có paymentUrl → đơn COD / transfer nội bộ */
+    toast.success('Đặt hàng thành công!');
+    navigate('/my-orders');
+  } catch (err) {
+    console.error('Lỗi khi tạo đơn hàng:', err);
+    toast.error('Có lỗi xảy ra khi đặt hàng!');
+  }
 };
+
 
 
     return (
