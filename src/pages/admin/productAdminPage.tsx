@@ -1,5 +1,5 @@
 import  { useEffect, useState } from 'react';
-import { Table, Button, Space, Popconfirm, message } from 'antd';
+import { Table, Button, Space, Popconfirm, message, Input, Select } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { getProductsApi, deleteProductApi,getCategoriesApi } from '@/services/api';
 import ModalProduct from '@/components/admin/products/modal.product';
@@ -16,6 +16,8 @@ const ProductAdminPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [dataInit, setDataInit] = useState<IProduct | null>(null);
+    const [searchName, setSearchName] = useState("");
+    const [filterCategory, setFilterCategory] = useState("");
 
     const fetchProducts = async () => {
         setLoading(true);
@@ -71,6 +73,13 @@ const ProductAdminPage = () => {
         fetchProducts();
         fetchCategories()
     }, []);
+
+    // Lọc sản phẩm theo tên và danh mục
+    const filteredProducts = products.filter(product => {
+        const matchName = product.productName.toLowerCase().includes(searchName.toLowerCase());
+        const matchCategory = filterCategory ? product.category === filterCategory : true;
+        return matchName && matchCategory;
+    });
 
     const columns = [
         {
@@ -167,8 +176,24 @@ const ProductAdminPage = () => {
             >
                 Thêm mới
             </Button>
+            <div style={{ marginBottom: 16, display: "flex", gap: 8 }}>
+                <Input
+                    placeholder="Tìm theo tên sản phẩm"
+                    value={searchName}
+                    onChange={e => setSearchName(e.target.value)}
+                    style={{ width: 200 }}
+                />
+                <Select
+                    allowClear
+                    placeholder="Lọc theo danh mục"
+                    value={filterCategory || undefined}
+                    onChange={value => setFilterCategory(value || "")}
+                    style={{ width: 200 }}
+                    options={categories}
+                />
+            </div>
             <Table
-                dataSource={products}
+                dataSource={filteredProducts}
                 columns={columns}
                 rowKey="_id"
                 loading={loading}

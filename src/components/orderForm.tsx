@@ -35,8 +35,7 @@ const OrderForm: React.FC<IOrderFormProps> = ({ userId, onSubmit }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <h2 className="text-lg font-bold mb-4">Order Information</h2>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4 bg-white shadow-md rounded-lg">
 
             <CartInfo
                 userId={userId}
@@ -61,7 +60,11 @@ const OrderForm: React.FC<IOrderFormProps> = ({ userId, onSubmit }) => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
+                    pattern="^0\d{9}$" // Bắt đầu bằng 0, tổng 10 số
+                    maxLength={10}
+                    minLength={10}
                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                    placeholder="Nhập số điện thoại (10 số)"
                 />
             </div>
 
@@ -73,8 +76,7 @@ const OrderForm: React.FC<IOrderFormProps> = ({ userId, onSubmit }) => {
                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                 >
                     <option value="COD">Cash on Delivery (COD)</option>
-                    <option value="Credit Card">Credit Card</option>
-                    <option value="BANK_TRANSFER">PayPal</option>
+                    <option value="BANK_TRANSFER">VNPAY</option>
                 </select>
             </div>
 

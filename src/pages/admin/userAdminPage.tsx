@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Space, Popconfirm, message } from "antd";
+import { Table, Button, Space, Popconfirm, message, Input } from "antd";
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { getListUsers, deleteUser } from "@/services/api";
 import ModalUser from "@/components/admin/user/modal.user";
@@ -14,6 +14,7 @@ const UserAdminPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [dataInit, setDataInit] = useState<IUser | null>(null);
+    const [searchEmail, setSearchEmail] = useState("");
 
     const fetchUsers = async () => {
         setLoading(true);
@@ -49,6 +50,11 @@ const UserAdminPage = () => {
     useEffect(() => {
         fetchUsers();
     }, []);
+
+    // Lọc users theo email
+    const filteredUsers = users.filter(user =>
+        user.email.toLowerCase().includes(searchEmail.toLowerCase())
+    );
 
     const columns = [
         {
@@ -123,8 +129,16 @@ const UserAdminPage = () => {
             >
                 Thêm mới
             </Button>
+            <div style={{ marginBottom: 16, display: "flex", gap: 8 }}>
+                <Input
+                    placeholder="Tìm kiếm theo email"
+                    value={searchEmail}
+                    onChange={e => setSearchEmail(e.target.value)}
+                    style={{ width: 250 }}
+                />
+            </div>
             <Table
-                dataSource={users}
+                dataSource={filteredUsers}
                 columns={columns}
                 rowKey="_id"
                 loading={loading}

@@ -50,7 +50,7 @@ const OrderPage = () => {
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Place Your Order</h1>
+            <h1 className="text-2xl font-bold mb-4">Thông tin đơn đặt</h1>
             <OrderForm userId={user.id} onSubmit={handleOrderSubmit} />
         </div>
     );
