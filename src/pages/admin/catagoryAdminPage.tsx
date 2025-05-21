@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button, Space, Popconfirm, message } from 'antd';
+import { Table, Button, Space, Popconfirm, message, Input } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { getCategoriesApi, deleteCategoryApi } from '@/services/api';
 import ModalCatagory from '@/components/admin/catagory/modal.catagory';
@@ -14,6 +14,7 @@ const CatagoryAdminPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [dataInit, setDataInit] = useState<ICategory | null>(null);
+    const [searchName, setSearchName] = useState("");
 
     const fetchCategories = async () => {
         setLoading(true);
@@ -55,6 +56,11 @@ const CatagoryAdminPage = () => {
     useEffect(() => {
         fetchCategories();
     }, []);
+
+    // Lọc danh mục theo tên
+    const filteredCategories = categories.filter(category =>
+        category.name.toLowerCase().includes(searchName.toLowerCase())
+    );
 
     const columns = [
         {
@@ -144,15 +150,21 @@ const CatagoryAdminPage = () => {
             >
                 Thêm mới
             </Button>
-
+            <div style={{ marginBottom: 16, display: "flex", gap: 8 }}>
+                <Input
+                    placeholder="Tìm kiếm theo tên danh mục"
+                    value={searchName}
+                    onChange={e => setSearchName(e.target.value)}
+                    style={{ width: 250 }}
+                />
+            </div>
             <Table
-                dataSource={categories}
+                dataSource={filteredCategories}
                 columns={columns}
                 rowKey={(record) => record._id}
                 loading={loading}
                 scroll={{ x: 'max-content' }}
             />
-
             <ModalCatagory
                 openModal={openModal}
                 setOpenModal={setOpenModal}

@@ -163,3 +163,9 @@ export const vnpayReturnApi = (data: any) => {
     const urlBackend = `/api/v1/payment/vnpay-return`;
     return axios.get<IBackendRes<any>>(urlBackend, { params: data });
 }
+
+//update order
+export const updateOrderApi = (id: string, status:string) => {
+    const urlBackend = `/api/v1/order/${id}`;
+    return axios.put<IBackendRes<any>>(urlBackend, { status });
+}
